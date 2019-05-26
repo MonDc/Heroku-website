@@ -46,41 +46,8 @@
         <div class="row justify-content-center">
           <div class="col-md-7 mb-5"  data-aos="fade">
 
-            
+           <%# this document is a copy of login but we just deleted the form  %>
 
-            <form action="/auth/login" method="POST" class="p-5 bg-white">
-             
-              <div class="row form-group">
-                
-                <div class="col-md-12">
-                  <label class="text-black" for="email">Email</label> 
-                  <input type="email" name="email" id="email" class="form-control">
-                </div>
-              </div>
-
-              <div class="row form-group">
-                
-                <div class="col-md-12">
-                  <label class="text-black" for="subject">Password</label> 
-                  <input type="password" name="password" id="subject" class="form-control">
-                </div>
-              </div>
-
-              <div class="row form-group">
-                <div class="col-12">
-                  <p>No account yet? <a href="/auth/register">Register</a></p>
-                </div>
-              </div>
-
-            
-              <div class="row form-group">
-                <div class="col-md-12">
-                  <input type="submit" value="Log In" class="btn btn-primary py-2 px-4 text-white">
-                </div>
-              </div>
-
-  
-            </form>
           </div>
           
         </div>
@@ -163,47 +130,5 @@
   </div>
 <%-include('partials/scripts')%>
     
-<%if(LoginMessage){%>
-
-
-  <%# user is {user exist} modal %>
-  <!-- Button trigger modal-->
-
-<!--Modal: modalConfirmDelete-->
-<div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
-    <!--Content-->
-    <div class="modal-content text-center">
-      <!--Header-->
-      <div class="modal-header d-flex justify-content-center">
-        <p class="heading">Either user name or password are not correct</p>
-        <p>No account yet? <a href="/auth/register">Register</a></p>
-      </div>
-
-      <!--Body-->
-      <div class="modal-body">
-
-        <i class="fas fa-times fa-4x animated rotateIn"></i>
-
-      </div>
-
-      <!--Footer-->
-      <div class="modal-footer flex-center">
-        <a href="" class="btn  btn-outline-danger">Yes</a>
-        <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">No</a>
-      </div>
-    </div>
-    <!--/.Content-->
-  </div>
-</div>
-<!--Modal: modalConfirmDelete-->
-<script> 
-$('#modalConfirmDelete').modal('show')
-</script>
-<!-- finish (user exist) modal -->
-<%}%>
-
-  
   </body>
 </html>
