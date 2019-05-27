@@ -434,7 +434,7 @@ h5,
 /* Navbar */
 .site-navbar {
   margin-bottom: 0px;
-  z-index: 1199;
+  z-index: 1000;
   position: absolute;
   top: 20px;
   left: 50%;
@@ -2496,4 +2496,11 @@ h5,
 .newsletter .btn:hover {
   color: #fff;
   background: #000;
+}
+
+
+/* manipulated css */
+
+.modal {
+  top: 150px;
 }

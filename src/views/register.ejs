@@ -121,47 +121,51 @@
        <%-include('partials/footer')%>
   </div>
 <%-include('partials/scripts')%>
-
-<%if(userExist){%>
-
-
-  <%# user is {user exist} modal %>
-  <!-- Button trigger modal-->
-
-<!--Modal: modalConfirmDelete-->
-<div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+  <% if(userExist){%>
+<!-- user is  exist modal -->
+<!-- Button trigger modal-->
+<!-- Modal: modalAbandonedCart-->
+<div class="modal fade right" id="modalAbandonedCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-info" role="document">
     <!--Content-->
-    <div class="modal-content text-center">
+    <div class="modal-content">
       <!--Header-->
-      <div class="modal-header d-flex justify-content-center">
-        <p class="heading">Sorry User name exist already, please try  another one?</p>
+      <div class="modal-header bg-primary">
+        <p class="heading">Username exists!
+        </p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
       </div>
-
       <!--Body-->
       <div class="modal-body">
-
-        <i class="fas fa-times fa-4x animated rotateIn"></i>
-
+        <div class="row">
+          <div class="col-3">
+            <p></p>
+            <p class="text-center"><i class="fas fa-shopping-cart fa-4x"></i></p>
+          </div>
+          <div class="col-9">
+            <p>Sorry the user name is already taken </p>
+            <p>Pleae try another one.</p>
+          </div>
+        </div>
       </div>
-
       <!--Footer-->
-      <div class="modal-footer flex-center">
-        <a href="" class="btn  btn-outline-danger">Yes</a>
-        <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">No</a>
+      <div class="modal-footer justify-content-center">
+        
+        <a type="button" class="btn btn-primary waves-effect" data-dismiss="modal">OK</a>
       </div>
     </div>
     <!--/.Content-->
   </div>
 </div>
-<!--Modal: modalConfirmDelete-->
-<script> 
-$('#modalConfirmDelete').modal('show')
+<!-- Modal: modalAbandonedCart-->
+<script>
+$('#modalAbandonedCart').modal('show');
 </script>
-<!-- finish (user exist) modal -->
+<!-- finish user is  exist comment -->
 <%}%>
-
   
     
   </body>

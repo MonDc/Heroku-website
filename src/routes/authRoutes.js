@@ -26,7 +26,7 @@ authRoutes.route('/register').post((req, res) => {
 
 authRoutes.route('/login').get((req, res) => {
     res.render('login', {
-        LoginMessage: false
+        loginMessage: false
     });
 });
 
@@ -36,7 +36,7 @@ authRoutes.route('/login').post((req, res) => {
             res.redirect('/admin')
         } else {
             res.render('login', {
-                LoginMessage: true
+                loginMessage: true
             })
         }
     })

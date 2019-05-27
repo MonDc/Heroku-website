@@ -106,104 +106,57 @@
       </div>
     </div>
     
-    
-    <footer class="site-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-9">
-            <div class="row">
-              <div class="col-md-6">
-                <h2 class="footer-heading mb-4">About</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident rerum unde possimus molestias dolorem fuga, illo quis fugiat!</p>
-              </div>
-              
-              <div class="col-md-3">
-                <h2 class="footer-heading mb-4">Navigations</h2>
-                <ul class="list-unstyled">
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Services</a></li>
-                  <li><a href="#">Testimonials</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                </ul>
-              </div>
-              <div class="col-md-3">
-                <h2 class="footer-heading mb-4">Follow Us</h2>
-                <a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
-                <a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
-                <a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
-                <a href="#" class="pl-3 pr-3"><span class="icon-linkedin"></span></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <form action="#" method="post">
-              <div class="input-group mb-3">
-                <input type="text" class="form-control border-secondary text-white bg-transparent" placeholder="Search products..." aria-label="Enter Email" aria-describedby="button-addon2">
-                <div class="input-group-append">
-                  <button class="btn btn-primary text-white" type="button" id="button-addon2">Search</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div class="row pt-5 mt-5 text-center">
-          <div class="col-md-12">
-            <div class="border-top pt-5">
-            <p>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            </p>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-    </footer>
+
+<%- include('partials/footer') %>
   </div>
 <%-include('partials/scripts')%>
-    
-<%if(LoginMessage){%>
-
-
-  <%# user is {user exist} modal %>
-  <!-- Button trigger modal-->
-
-<!--Modal: modalConfirmDelete-->
-<div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+  
+  <% if(loginMessage){%>
+<!-- user is  exist modal -->
+<!-- Button trigger modal-->
+<!-- Modal: modalAbandonedCart-->
+<div class="modal fade right" id="modalAbandonedCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-info" role="document">
     <!--Content-->
-    <div class="modal-content text-center">
+    <div class="modal-content">
       <!--Header-->
-      <div class="modal-header d-flex justify-content-center">
-        <p class="heading">Either user name or password are not correct</p>
-        <p>No account yet? <a href="/auth/register">Register</a></p>
+      <div class="modal-header bg-primary">
+        <p class="heading">Login Failed
+        </p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
       </div>
-
       <!--Body-->
       <div class="modal-body">
-
-        <i class="fas fa-times fa-4x animated rotateIn"></i>
-
+        <div class="row">
+          <div class="col-3">
+            <p></p>
+            <p class="text-center"><i class="fas fa-shopping-cart fa-4x"></i></p>
+          </div>
+          <div class="col-9">
+            <p>Sorry username or password is wrong</p>
+            <p>No account yet? <a href="/auth/register">Register</a></p>
+          </div>
+        </div>
       </div>
-
       <!--Footer-->
-      <div class="modal-footer flex-center">
-        <a href="" class="btn  btn-outline-danger">Yes</a>
-        <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">No</a>
+      <div class="modal-footer justify-content-center">
+        
+        <a type="button" class="btn btn-primary waves-effect" data-dismiss="modal">Retry</a>
       </div>
     </div>
     <!--/.Content-->
   </div>
 </div>
-<!--Modal: modalConfirmDelete-->
-<script> 
-$('#modalConfirmDelete').modal('show')
+<!-- Modal: modalAbandonedCart-->
+<script>
+$('#modalAbandonedCart').modal('show');
 </script>
-<!-- finish (user exist) modal -->
+<!-- finish user is  exist comment -->
 <%}%>
 
-  
+
   </body>
 </html>

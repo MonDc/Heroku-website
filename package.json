@@ -23,7 +23,9 @@
   "homepage": "https://github.com/ahmad-dci/heroku-website#readme",
   "dependencies": {
     "ejs": "^2.6.1",
-    "express": "^4.17.0",
-    "mongodb": "^3.2.5"
+    "express": "^4.17.1",
+    "express-session": "^1.16.1",
+    "mongodb": "^3.2.5",
+    "session": "^0.1.0"
   }
 }

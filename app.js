@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const session = require('express-session');
 const pagesRoutes = require('./src/routes/pagesRoutes');
 const authRoutes = require('./src/routes/authRoutes')
 const adminRoutes = require('./src/routes/adminRoutes')
@@ -8,7 +9,11 @@ const port = process.env.PORT || 3000;
 // Set express urlencoded middlewear
 app.use(express.urlencoded({
     extended: false
-}))
+}));
+
+app.use(session({
+    secret: 'classyads'
+}));
 
 app.use(express.json())
 
