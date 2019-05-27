@@ -15,7 +15,7 @@ app.use(session({
     secret: 'classyads'
 }));
 
-app.use(express.json())
+app.use(express.json());
 
 
 // set views folder
@@ -28,7 +28,8 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 app.use('/', pagesRoutes);
 app.use('/auth', authRoutes);
-app.use('/admin', adminRoutes)
+app.use('/admin', adminRoutes);
+
 app.listen(port, () => {
     console.log(`App listening on port ${port}!`);
 });
