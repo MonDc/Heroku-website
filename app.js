@@ -5,7 +5,7 @@ const pagesRoutes = require('./src/routes/pagesRoutes');
 const authRoutes = require('./src/routes/authRoutes')
 const adminRoutes = require('./src/routes/adminRoutes')
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 2222;
 // Set express urlencoded middlewear
 app.use(express.urlencoded({
     extended: false
@@ -16,7 +16,6 @@ app.use(session({
 }));
 
 app.use(express.json());
-
 
 // set views folder
 app.set('views', path.join(__dirname, '/src/views'));
