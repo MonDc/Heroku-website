@@ -2,7 +2,8 @@ const {
     MongoClient
 } = require('mongodb');
 
-const dbUrl = 'mongodb+srv://mondc:Hello@cluster0-6q4lr.mongodb.net/test?retryWrites=true';
+//const dbUrl = 'hidden mongo url in config';
+const conf = require('./config')
 const dbName = 'herokuwebDB';
 
 function checkUser(email, password, callback) {
@@ -10,7 +11,7 @@ function checkUser(email, password, callback) {
         let client;
 
         try {
-            client = await MongoClient.connect(dbUrl, {
+            client = await MongoClient.connect(conf.configMongoURI, {
                 useNewUrlParser: true
             })
             const db = client.db(dbName);
@@ -38,7 +39,7 @@ function addUser(email, password, callback) {
     (async function mongo() {
         let client;
         try {
-            client = await MongoClient.connect(dbUrl, {
+            client = await MongoClient.connect(conf.configMongoURI, {
                 useNewUrlParser: true
             })
             const db = client.db(dbName);
