@@ -1,5 +1,6 @@
 const {
-    MongoClient
+    MongoClient,
+    ObjectID
 } = require('mongodb');
 
 //const dbUrl = 'hidden mongo url in config';
@@ -20,6 +21,7 @@ function checkUser(email, password, callback) {
                 username: email,
                 password: password
             });
+            console.log(user);
             client.close();
 
             callback(user);
@@ -69,8 +71,63 @@ function addUser(email, password, callback) {
     }())
 }
 
+function changePassword(id, newPassword, done) {
+    (async function mongo() {
+        let client;
+        try {
+            client = await MongoClient.connect(conf.configMongoURI, {
+                useNewUrlParser: true
+            })
+            const db = client.db(dbName);
+            const response = await db.collection('users').updateOne({
+                _id: new ObjectID(id)
+            }, {
+                $set: {
+                    password: newPassword
+                }
+            });
+            done(response);
+
+        } catch (error) {
+            done(error.message)
+
+        }
+        client.close();
+    }())
+
+}
+
+function newAdv(title, keywords, description, category, imgURL, done) {
+    (async function mongo() {
+        let client;
+        try {
+            client = await MongoClient.connect(conf.configMongoURI, {
+                useNewUrlParser: true
+            });
+            const db = client.db(dbName);
+            const response = await db.collection('advs').insertOne({
+                title: title,
+                keywords: keywords,
+                description: description,
+                category: category,
+                imgURL: imgURL
+            })
+            client.close();
+            done(response)
+
+        } catch (error) {
+            client.close();
+            done(error.message)
+
+        }
+    }())
+
+}
 
 module.exports = {
     checkUser,
-    addUser
+    addUser,
+    changePassword,
+    newAdv
+
 };
