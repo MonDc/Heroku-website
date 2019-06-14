@@ -1,9 +1,11 @@
 const {
-    MongoClient
+    MongoClient,
+    ObjectID
 } = require('mongodb');
 const conf = require('./config')
-const dbName = 'herokuwebDB';
 
+
+// Get all advs from db
 
 function getAdvs(done) {
     (async function mongo() {
@@ -12,9 +14,19 @@ function getAdvs(done) {
             client = await MongoClient.connect(conf.configMongoURI, {
                 useNewUrlParser: true
             });
-            const db = client.db(dbName);
-            const data = await db.collection('advs').find().toArray();
+            const db = client.db(conf.dbName);
+            let data = await db.collection('advs').find().toArray();
+
+
+            for (let i = 0; i < data.length; i++) {
+                console.log(data[i].category)
+                let category = await db.collection('categories').findOne({
+                    _id: new ObjectID(data[i].category)
+                })
+                data[i].category = category.title
+            }
             client.close();
+
             done(true, data)
 
         } catch (error) {

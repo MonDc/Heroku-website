@@ -5,7 +5,7 @@ const {
 
 //const dbUrl = 'hidden mongo url in config';
 const conf = require('./config')
-const dbName = 'herokuwebDB';
+//const dbName = 'herokuwebDB';
 
 function checkUser(email, password, callback) {
     (async function mongo() {
@@ -15,7 +15,7 @@ function checkUser(email, password, callback) {
             client = await MongoClient.connect(conf.configMongoURI, {
                 useNewUrlParser: true
             })
-            const db = client.db(dbName);
+            const db = client.db(conf.dbName);
             const col = await db.collection('users');
             const user = await col.findOne({
                 username: email,
@@ -44,7 +44,7 @@ function addUser(email, password, callback) {
             client = await MongoClient.connect(conf.configMongoURI, {
                 useNewUrlParser: true
             })
-            const db = client.db(dbName);
+            const db = client.db(conf.dbName);
             const user = await db.collection('users').findOne({
                 username: email
             })
@@ -78,7 +78,7 @@ function changePassword(id, newPassword, done) {
             client = await MongoClient.connect(conf.configMongoURI, {
                 useNewUrlParser: true
             })
-            const db = client.db(dbName);
+            const db = client.db(conf.dbName);
             const response = await db.collection('users').updateOne({
                 _id: new ObjectID(id)
             }, {
@@ -97,19 +97,27 @@ function changePassword(id, newPassword, done) {
 
 }
 
-function newAdv(title, keywords, description, category, imgURL, done) {
+function newAdv(title, keywords, description, catValue, newCategory, imgURL, done) {
+
     (async function mongo() {
         let client;
         try {
             client = await MongoClient.connect(conf.configMongoURI, {
                 useNewUrlParser: true
             });
-            const db = client.db(dbName);
+            const db = client.db(conf.dbName);
+            if (catValue === '-1') {
+                const catResponse = await db.collection('categories').insertOne({
+                    title: newCategory
+                })
+                //console.log(catResponse.ops.insertedId)
+                catValue = catResponse.insertedId;
+            }
             const response = await db.collection('advs').insertOne({
                 title: title,
                 keywords: keywords,
                 description: description,
-                category: category,
+                category: catValue,
                 imgURL: imgURL
             })
             client.close();
@@ -124,10 +132,57 @@ function newAdv(title, keywords, description, category, imgURL, done) {
 
 }
 
+
+function getCategories(done) {
+    (async function mongo() {
+        let client;
+        try {
+            client = await MongoClient.connect(conf.configMongoURI, {
+                useNewUrlParser: true
+            });
+            const db = client.db(conf.dbName);
+            const cats = await db.collection('categories').find().toArray();
+            client.close();
+            done(true, cats)
+
+
+
+        } catch (error) {
+            client.close();
+            done(false, error.message)
+        }
+    }())
+}
+
+function getIndividualAd(id, done) {
+    (async function mongo() {
+        let client;
+        try {
+            client = await MongoClient.connect(conf.configMongoURI, {
+                useNewUrlParser: true
+            });
+            const db = client.db(conf.dbName);
+            const adv = await db.collection('advs').findOne({
+                _id: new ObjectID(id)
+            })
+            client.close()
+
+            done(true, adv)
+
+        } catch (error) {
+            done(false, error.message)
+
+        }
+    }())
+
+}
+
 module.exports = {
     checkUser,
     addUser,
     changePassword,
-    newAdv
+    newAdv,
+    getCategories,
+    getIndividualAd
 
 };

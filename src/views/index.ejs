@@ -299,13 +299,13 @@
             
             <div class="listing-item">
               <div class="listing-image">
-                <img src="<%=result[i].imgURL%>" alt="Image" class="img-fluid">
+                <img src="<%=result[i].imgURL[0]%>" alt="Image" class="img-fluid">
               </div>
               <div class="listing-item-content">
                 <a href="#" class="bookmark" data-toggle="tooltip" data-placement="left" title="Bookmark"><span class="icon-heart"></span></a>
                 <a class="px-3 mb-3 category" href="#"><%=result[i].category%></a>
                 <h2 class="mb-1"><a href="#"><%=result[i].title%></a></h2>
-                <span class="address"><%=result[i].keyword%></span>
+                <span class="address"><%=result[i].keywords%></span>
               </div>
             </div>
          

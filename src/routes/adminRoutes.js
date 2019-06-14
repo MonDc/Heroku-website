@@ -2,18 +2,29 @@ const express = require('express');
 const multer = require('multer')
 const adminRoutes = express.Router();
 
-const authControllers = require('../controllers/authControllers')
+const authControllers = require('../controllers/authControllers');
+const enduserControlders = require('../controllers/enduserControllers')
 
-
-
-adminRoutes.route('/').get((req, res) => {
+//use session as middlewear
+// app.use shoud be the first before adminroutes.route
+adminRoutes.use((req, res, next) => {
     if (req.session.user) {
-        res.render('adminMain')
+        next();
+
     } else {
         res.redirect('/auth/login')
 
     }
 })
+
+
+
+adminRoutes.route('/').get((req, res) => {
+    res.render('adminMain')
+
+})
+
+
 
 const multerConf = multer.diskStorage({
     destination: './public/uploads/',
@@ -25,17 +36,89 @@ const upload = multer({
     storage: multerConf
 });
 
-adminRoutes.use('/newadv', upload.array('submitIt'))
+adminRoutes.use('/newadv', upload.array('submitIt', 10))
+adminRoutes.route('/newAdv').get((req, res) => {
+    authControllers.getCategories((ok, result) => {
+        if (ok) {
+            console.log(result)
+            res.render('newAdv', {
+                result
+            });
+        } else {
+            res.send(result)
+        }
+
+    })
+
+
+})
+
+adminRoutes.route('/advsManag').get((req, res) => {
+    enduserControlders.getAdvs((ok, result) => {
+        if (ok) {
+            console.log(result)
+            res.render('advsManag', {
+                result
+            })
+        } else {
+            res.send(result)
+        }
+    })
+})
+
+adminRoutes.route('/advsedite/:id').get((req, res) => {
+    const advId = req.params.id;
+    authControllers.getIndividualAd(advId, (checkAdv, adv) => {
+        if (checkAdv) {
+            authControllers.getCategories((ok, categorieeeees) => {
+                if (ok) {
+                    res.render('advsedite', {
+                        categorieeeees,
+                        adv
+                        // this result is the category
+                    });
+                } else {
+                    res.send(categorieeeees)
+                }
+
+            })
+
+        } else {
+            res.send(adv);
+        }
+    })
+})
+
+
+
 adminRoutes.route('/newadv').post((req, res) => {
     console.log(req.files[0])
+    let phtosArrFromDb = [];
+    for (let i = 0; i < req.files.length; i++) {
+        phtosArrFromDb.push(req.files[i].destination.replace("./public", "") + req.files[i].filename);
+        //the line above (for only one photo) was like this
+        //req.files[0].destination.replace("./public", "") + req.files[0].filename
+
+    }
     authControllers.newAdv(
 
         req.body.title,
         req.body.keyword,
         req.body.description,
         req.body.category,
-        req.files[0].destination.replace("./public", "") + req.files[0].filename, (result) => {
-            res.send(result)
+        req.body.newcategory,
+        phtosArrFromDb, (result) => {
+            //res.send(result)  this is to delete the ugly message ( n-1)
+            authControllers.getCategories((ok, result) => {
+                if (ok) {
+                    console.log(result)
+                    res.render('newAdv', {
+                        result
+                    });
+                } else {
+                    res.send(result)
+                }
+            })
 
         })
 
