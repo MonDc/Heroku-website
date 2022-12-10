@@ -23,7 +23,7 @@
   "homepage": "https://github.com/ahmad-dci/heroku-website#readme",
   "dependencies": {
     "ejs": "^2.6.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-session": "^1.16.1",
     "mongodb": "^3.2.5",
     "multer": "^1.4.1",
